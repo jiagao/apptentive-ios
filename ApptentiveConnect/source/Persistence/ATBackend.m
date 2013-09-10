@@ -510,9 +510,17 @@ NSString *const ATInfoDistributionKey = @"ATInfoDistributionKey";
 		}
 		[person saveAsCurrentPerson];
 		
+		// add a deep link for merchant
+		if ([[ATConnect sharedConnection] customDataLink]) {
+			message = [NSString stringWithFormat:@"%@\n%@",message,[ATConnect sharedConnection].customDataLink];
+		}
+		
 		[self sendTextMessageWithBody:message completion:^(NSString *pendingMessageID) {
 			[[NSNotificationCenter defaultCenter] postNotificationName:ATMessageCenterIntroDidSendNotification object:nil userInfo:@{ATMessageCenterMessageNonceKey: pendingMessageID}];
 		}];
+		
+		// clean link
+		[ATConnect sharedConnection].customDataLink = nil;
 	}
 }
 

@@ -23,7 +23,7 @@ NSString *const ATInitialUserNameKey = @"ATInitialUserNameKey";
 NSString *const ATInitialUserEmailAddressKey = @"ATInitialUserEmailAddressKey";
 
 @implementation ATConnect
-@synthesize apiKey, showTagline, showEmailField, initialUserName, initialUserEmailAddress, customPlaceholderText, useMessageCenter;
+@synthesize apiKey, showTagline, showEmailField, initialUserName, initialUserEmailAddress, customPlaceholderText, useMessageCenter, customDataLink;
 
 + (ATConnect *)sharedConnection {
 	static ATConnect *sharedConnection = nil;
@@ -59,6 +59,7 @@ NSString *const ATInitialUserEmailAddressKey = @"ATInitialUserEmailAddressKey";
 	[apiKey release], apiKey = nil;
 	[initialUserName release], initialUserName = nil;
 	[initialUserEmailAddress release], initialUserEmailAddress = nil;
+	[customDataLink release];
 	[super dealloc];
 }
 
@@ -174,6 +175,7 @@ NSString *const ATInitialUserEmailAddressKey = @"ATInitialUserEmailAddressKey";
 	NSString *title = ATLocalizedString(@"Give Feedback", @"First feedback screen title.");
 	NSString *body = [NSString stringWithFormat:ATLocalizedString(@"Please let us know how to make %@ better for you!", @"Feedback screen body. Parameter is the app name."), [[ATBackend sharedBackend] appName]];
 	NSString *placeholder = ATLocalizedString(@"How can we help? (required)", @"First feedback placeholder text.");
+	
 	[[ATBackend sharedBackend] presentIntroDialogFromViewController:viewController withTitle:title prompt:body placeholderText:placeholder];
 }
 

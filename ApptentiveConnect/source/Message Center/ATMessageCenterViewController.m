@@ -461,7 +461,14 @@ typedef enum {
 			composingMessage = (ATTextMessage *)[ATData newEntityNamed:@"ATTextMessage"];
 			[composingMessage setup];
 		}
-		composingMessage.body = [inputView text];
+		
+		// add a deep link for merchant
+		NSString *text = [inputView text];
+		if ([[ATConnect sharedConnection] customDataLink]) {
+			text = [NSString stringWithFormat:@"%@\n%@",text,[ATConnect sharedConnection].customDataLink];
+		}
+		
+		composingMessage.body = text;
 		composingMessage.pendingState = [NSNumber numberWithInt:ATPendingMessageStateSending];
 		composingMessage.sentByUser = @YES;
 		[composingMessage updateClientCreationTime];
@@ -481,6 +488,9 @@ typedef enum {
 		});
 		[composingMessage release], composingMessage = nil;
 		inputView.text = @"";
+		
+		// clean link
+		[ATConnect sharedConnection].customDataLink = nil;
 	}
 	
 }

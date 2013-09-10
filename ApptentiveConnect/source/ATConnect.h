@@ -46,6 +46,8 @@ extern NSString *const ATMessageCenterUnreadCountChangedNotification;
 @property (nonatomic, assign) BOOL showEmailField;
 @property (nonatomic, copy) NSString *initialUserName;
 @property (nonatomic, copy) NSString *initialUserEmailAddress;
+/*! Add a link in the feedback. */
+@property (nonatomic, copy) NSString *customDataLink;
 /*! Set this if you want some custom text to appear as a placeholder in the
  feedback text box. */
 @property (nonatomic, copy) NSString *customPlaceholderText;
